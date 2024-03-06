@@ -1,0 +1,134 @@
+<div class="out">
+  <div style="height: 100vh;">
+    <div class="">
+      <div class="in shadow w-50 p-5 position-absolute top-0  start-50 translate-middle-x">
+        <form #registerForm="ngForm" (ngSubmit)="register(registerForm)">
+          
+            <h1 class="text-center chaithrakumari">
+              
+                Admin Databases
+             
+            </h1>
+          
+            
+          <div class="">
+            <label for="id" class="">Id:</label>
+            <div class="">
+            <input id="id" required #id="ngModel" (ngModel)="id" name="id" type="text" placeholder="enter your no"
+            [class.is.invalid]="id.invalid && id.touched" class="form-control" pattern="[1-9]{1}">
+            <div *ngIf="id.errors && id.invalid && id.touched">
+              <small class="text-danger" *ngIf="id.errors?.['required']">Required</small>
+              <small class="text-danger" *ngIf="id.errors?.['pattern']">Must be 1 digit  not start with 0</small>
+              
+            </div>  
+          </div>
+        </div>
+        <br>
+          <div class="">
+            <label for="name" class="">Name: </label>
+            <input id="name" required #name="ngModel" (ngModel)="name" name="name" type="text" placeholder="enter your name"
+            [class.is.invalid]="name.invalid && name.touched" class="form-control" >
+            <small class="text-danger" [class.d-none]="name.valid || name.untouched">Required
+
+            </small>
+            
+          </div><br>
+          <div class="">
+            <label for="password" class="">Password: </label>
+            <input id="password" required #password="ngModel" (ngModel)="password" name="password" type="text" placeholder="enter password"
+            [class.is.invalid]="password.invalid && password.touched" class="form-control" >
+            <small class="text-danger" [class.d-none]="password.valid || password.untouched">Required
+
+            </small>
+            
+          </div><br>
+          <div class="form-group text-center">
+            <input [class.disabled]="registerForm.form.invalid" class="btn btn-primary" type="submit" value="submit">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+    <div class="tab">
+      <div class="mt-5">
+        <table class="table table-bordered">
+          <thead>
+            <tr> 
+            <th> Id</th>
+            <th> Name</th>
+            <th> Password</th>
+            <th>Delete </th>
+            <th>Edit</th>
+          </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let admin of adminDetails">
+              <td>{{admin.id}}</td>
+              <td>{{admin.name}}</td>
+              <td>{{admin.password}}</td>
+              <td><button type="button" class="btn btn-danger" (click)="deleteAdmin(admin)">Delete</button></td>
+              <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="edit(admin)">Edit</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+      
+      <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">updateAdmin</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form #updateForm="ngForm" (ngSubmit)="updateAdmin()">
+          
+          <h1 class="text-center chaithrakumari">
+            
+              Admin Databases
+           
+          </h1>
+        
+        <div class="">
+          <label for="id">Id:</label>
+          <div class="">
+          <input id="id" required #id="ngModel" [(ngModel)]="adminToUpdate.id" name="id" type="text" placeholder="enter your no"
+          [class.is.invalid]="id.invalid && id.touched" class="form-control" pattern="[1-9]{1}">
+          <div *ngIf="id.errors && id.invalid && id.touched">
+            <small class="text-danger" *ngIf="id.errors?.['required']">Required</small>
+            <small class="text-danger" *ngIf="id.errors?.['pattern']">Must be 1 digit  not start with 0</small>
+            
+          </div>  
+        </div>
+      </div>
+      <br>
+        <div class="">
+          <label for="name">Name: </label>
+          <input id="name" required #name="ngModel" [(ngModel)]="adminToUpdate.name" name="name" type="text" placeholder="enter your name"
+          [class.is.invalid]="name.invalid && name.touched" class="form-control" >
+          <small class="text-danger" [class.d-none]="name.valid || name.untouched">Required
+
+          </small>
+          
+        </div><br>
+        <div class="">
+          <label for="password">Password: </label>
+          <input id="password" required #password="ngModel" [(ngModel)]="adminToUpdate.password" name="password" type="text" placeholder="enter password"
+          [class.is.invalid]="password.invalid && password.touched" class="form-control" >
+          <small class="text-danger" [class.d-none]="password.valid || password.untouched">Required
+
+          </small>
+          
+        </div><br>
+        <div class="form-group text-center">
+          <input  class="btn btn-primary w-100" type="submit" value="update">
+        </div>
+      </form>
+      </div>
+      
+    </div>
+  </div>
+</div>
